@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {useForm, Controller, useWatch} from "react-hook-form";
-import Button from "@material-ui/core/Button";
 import TextField from "@mui/material/TextField";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -11,12 +10,12 @@ import Box from "@mui/material/Box";
 import {ascii} from "../api/api";
 
 export default function AsciiForm() {
-    const {handleSubmit, control} = useForm({
+    const {control} = useForm({
         mode: "onChange"
     });
     const [ASCII, setASCII] = useState();
 
-    const inputVal = useWatch({
+    let inputVal = useWatch({
         control,
         name: 'ASCII'
     });
@@ -30,6 +29,10 @@ export default function AsciiForm() {
         radioVal = "standard"
     }
 
+    if (inputVal === undefined) {
+        inputVal = "Hello World"
+    }
+
     ascii(inputVal, radioVal)
         .then((response) => {
             setASCII(response.data)
@@ -37,20 +40,9 @@ export default function AsciiForm() {
             console.log(error);
         });
 
-
-    const onSubmit = (formData) => {
-        ascii(formData.ASCII, formData.banner)
-            .then((response) => {
-                setASCII(response.data)
-            }, (error) => {
-                console.log(error);
-            });
-    };
-
-
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form>
                 <Box sx={{display: "flex", p: 1}}>
                     <Controller
                         name="ASCII"
@@ -122,12 +114,9 @@ export default function AsciiForm() {
                         />
                     </FormControl>
 
-                    <Button variant="contained" type="submit">
-                        Generate ASCII
-                    </Button>
                 </Box>
             </form>
-            <pre>{ASCII}</pre>
+            <pre className="ascii">{ASCII}</pre>
         </>
     );
 }
