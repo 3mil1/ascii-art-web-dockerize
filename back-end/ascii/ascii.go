@@ -1,4 +1,4 @@
-package main
+package ascii
 
 import (
 	"bufio"
@@ -14,11 +14,11 @@ func check(e error) {
 	}
 }
 
-func ascii(input string, template string, w http.ResponseWriter) {
+func Art(input string, template string, w http.ResponseWriter) {
 	lines, err := UrlToLines("https://git.01.kood.tech/root/public/raw/branch/master/subjects/ascii-art/" + template + ".txt")
 	check(err)
 
-	arr := strings.Split(input, "\r\n")
+	arr := strings.Split(input, "\n")
 
 	for _, e := range arr {
 		for i := 0; i < 8; i++ {
