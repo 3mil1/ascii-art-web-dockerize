@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  backend:
+    build: ./backend
+    container_name: ascii-art-backend
+    command: go run main.go
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: ascii-art-frontend
+    command: npm run start
+    ports:
+      - "3000:3000"
+    restart: unless-stopped

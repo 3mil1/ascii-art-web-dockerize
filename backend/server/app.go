@@ -20,5 +20,5 @@ func Start() {
 	fmt.Printf("Starting server at http://localhost:" + port + "\n")
 
 	//starting server
-	log.Fatal(http.ListenAndServe("localhost:"+port, mux))
+	log.Fatal(http.ListenAndServe("0.0.0.0:"+port, mux))
 }

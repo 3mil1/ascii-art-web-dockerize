@@ -13,6 +13,7 @@ type ASCII struct {
 }
 
 func greet(w http.ResponseWriter, r *http.Request) {
+	fmt.Print("hello!")
 	fmt.Fprint(w, "Hello")
 }
 
